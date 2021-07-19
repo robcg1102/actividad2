@@ -5,7 +5,7 @@
       "apellido": "García",
       "email": "lgarcia@mail.com",
       "urlImagen": "https://media.istockphoto.com/vectors/user-profile-icon-vector-id504539492?k=6&m=504539492&s=170667a&w=0&h=uzDxLA8Xv3UdYf9DmwXnXRTvjvt4P4qi4r3fNqTQP64=",
-      "activo": false,
+      "activo": true,
       "id": 3
     },
     {
@@ -13,7 +13,7 @@
       "apellido": "fenix",
       "email": "mfenix@mail.com",
       "urlImagen": "http://docs.ispconfig.org/wp-content/uploads/2010/10/user-group-icon.png",
-      "activo": false,
+      "activo": true,
       "id": 7
     }
   ]

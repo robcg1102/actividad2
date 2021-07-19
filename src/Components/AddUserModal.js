@@ -21,11 +21,12 @@ export default function AddUserModal() {
   const [urlImagen, setUrlImagen] = useState("");
   const [activo, setActive] = useState(false);
 
-  const {updateData} = useContext(AppContext);
+  const { updateData } = useContext(AppContext);
 
   const [open, setOpen] = useState(false);
 
-  const [errorForm, setErrorForm] = useState(false);
+  const [missingData, setMissingData] = useState(false);
+  const [formatEmail, setFormatEmail] = useState(false);
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -37,14 +38,24 @@ export default function AddUserModal() {
     setEmail("");
     setUrlImagen("");
     setActive(false);
-    setErrorForm(false);
+    setMissingData(false);
+    setFormatEmail(false);
     setOpen(false);
   };
 
   const createUser = () => {
     const dataUser = { nombre, apellido, email, urlImagen, activo };
     if (!nombre || !apellido || !email || !urlImagen) {
-      setErrorForm(true);
+      setMissingData(true);
+      return null;
+    }
+
+    const re =
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    const validateEmail = re.test(String(email).toLowerCase());
+    if (!validateEmail) {
+      setMissingData(false);
+      setFormatEmail(true);
       return null;
     }
 
@@ -55,8 +66,9 @@ export default function AddUserModal() {
       setUrlImagen("");
       setActive(false);
       setOpen(false);
-      setErrorForm(false);
-      updateData()
+      setMissingData(false);
+      setFormatEmail(false);
+      updateData();
     });
   };
 
@@ -72,8 +84,22 @@ export default function AddUserModal() {
       >
         <DialogTitle id="form-dialog-title">Crear usuario</DialogTitle>
         <DialogContent>
-          <DialogContentText style={{ color: errorForm ? "red" : "inherit" }}>
+          <DialogContentText
+            style={{
+              color: missingData ? "red" : "inherit",
+              display: missingData ? "inline" : "none",
+            }}
+          >
             Es necesario rellenar todos los campos de texto.
+          </DialogContentText>
+          <DialogContentText
+            style={{
+              color: formatEmail ? "red" : "inherit",
+              display: formatEmail ? "inline" : "none",
+            }}
+          >
+            El email es inválido, es necesario que tenga un formato
+            ejemplo@correo.com
           </DialogContentText>
           <TextField
             autoFocus
