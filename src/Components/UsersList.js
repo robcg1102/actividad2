@@ -1,20 +1,20 @@
 import UserRow from "./UserRow";
 import Container from "../Utils/Container";
 
-export default function UsersList(props) {
-  const usersList = props.usersList;
-  const callUpdate = props.callUpdate;
+import { useContext } from "react";
+import { AppContext } from "../Context";
 
-  const updateData = () => {
-    callUpdate();
-  }
+
+export default function UsersList() {
+
+  const {state} = useContext(AppContext);
 
   return (
     <Container paddLR="5px">
       <table>
         <tbody>
-          {usersList.map((user) => {
-            return <UserRow key={user.id} user={user} updateUser={updateData}/>;
+          {state.users.map((user) => {
+            return <UserRow key={user.id} user={user} />;
           })}
         </tbody>
       </table>

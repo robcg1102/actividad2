@@ -9,21 +9,23 @@ import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
 import Checkbox from "@material-ui/core/Checkbox";
 
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { FormControlLabel } from "@material-ui/core";
 
-export default function AddUserModal(props) {
+import { AppContext } from "../Context";
+
+export default function AddUserModal() {
   const [nombre, setNombre] = useState("");
   const [apellido, setApellido] = useState("");
   const [email, setEmail] = useState("");
   const [urlImagen, setUrlImagen] = useState("");
   const [activo, setActive] = useState(false);
 
+  const {updateData} = useContext(AppContext);
+
   const [open, setOpen] = useState(false);
 
   const [errorForm, setErrorForm] = useState(false);
-
-  const callOperation = props.callOperation;
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -54,7 +56,7 @@ export default function AddUserModal(props) {
       setActive(false);
       setOpen(false);
       setErrorForm(false);
-      callOperation();
+      updateData()
     });
   };
 

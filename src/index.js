@@ -4,9 +4,11 @@ import './index.css';
 import 'remixicon/fonts/remixicon.css'
 import App from './App';
 
+import MyProvider from "./Context";
+
 ReactDOM.render(
-  <React.StrictMode>
+  <MyProvider>
     <App />
-  </React.StrictMode>,
+  </MyProvider>,
   document.getElementById('root')
 );

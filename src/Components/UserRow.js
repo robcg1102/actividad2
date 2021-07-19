@@ -1,13 +1,16 @@
 import axios from "axios";
+import { useContext } from "react";
+import { AppContext } from "../Context";
 
 export default function UserRow(props) {
+  const {updateData} = useContext(AppContext);
+
   const user = props.user;
-  const updateUser = props.updateUser;
-  
+
   const deleteUser = (e, id) => {
     e.preventDefault();
     axios.delete(`http://localhost:3004/users/${id}`).then(() => {
-      updateUser();
+      updateData()
     });
   };
 
@@ -19,7 +22,7 @@ export default function UserRow(props) {
         activo: !user.activo,
       })
       .then(() => {
-        updateUser();
+        updateData()
       });
   };
 
